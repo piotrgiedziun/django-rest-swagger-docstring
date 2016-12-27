@@ -1,0 +1,5 @@
+Django==1.10.3
+djangorestframework==3.5.2
+coreapi==2.0.8
+openapi-codec==1.1.7
+django-rest-swagger==2.1.0
