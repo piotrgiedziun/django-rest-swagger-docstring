@@ -1,4 +1,3 @@
-from django.utils.encoding import force_text
 from rest_framework import serializers
 from rest_framework.compat import (
     coreapi, urlparse
@@ -6,6 +5,9 @@ from rest_framework.compat import (
 from rest_framework.permissions import AllowAny
 from rest_framework.schemas import SchemaGenerator
 from rest_framework.utils.field_mapping import ClassLookupDict
+
+from django.utils.encoding import force_text
+
 from .parsers import YAMLDocstringParser
 
 types_lookup = ClassLookupDict({
@@ -25,9 +27,7 @@ types_lookup = ClassLookupDict({
 
 class DocsSchemaGenerator(SchemaGenerator):
     def get_link(self, path, method, view):
-        """
-        Return a `coreapi.Link` instance for the given endpoint.
-        """
+        """Return a `coreapi.Link` instance for the given endpoint."""
         fields = self.get_path_fields(path, method, view)
         fields += self.get_serializer_fields(path, method, view)
         fields += self.get_pagination_fields(path, method, view)
@@ -56,9 +56,7 @@ class DocsSchemaGenerator(SchemaGenerator):
         )
 
     def get_docs_fields(self, path, method, view):
-        """
-        Return a `coreapi.Fields array` instance from docstrings
-        """
+        """Return a `coreapi.Fields array` instance from docstrings"""
         method_name = getattr(view, 'action', method.lower())
         method_docstring = getattr(view, method_name, None).__doc__
         docs = str(method_docstring)
